@@ -3,6 +3,8 @@
 /**
  * print_python_list_info - print basic info about Lists in python
  * @p: python object
+ *
+ * Return: void
  */
 void print_python_list_info(PyObject *p)
 {
