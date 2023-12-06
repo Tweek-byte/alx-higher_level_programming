@@ -4,12 +4,18 @@ def roman_to_int(roman_string):
 
     r_dic = {"I": 1, "V": 5, "X": 10,
              "L": 50, "C": 100, "D": 500, "M": 1000}
-
-    result = prev_v = 0
-
+    res = 0
+    prev_v = 0
     for char in reversed(roman_string):
-        v = r_dic.get(char, 0)
-        result -= v if v < prev_v else -v
-        prev_v = v
+        val = r_dic[char]
 
-    return result
+        if val is None:
+            return 0
+
+        if val < prev_v:
+            res -= val
+        else:
+            res += val
+        prev_v = val
+
+    return res
