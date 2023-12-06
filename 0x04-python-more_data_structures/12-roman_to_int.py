@@ -10,10 +10,10 @@ def roman_to_int(roman_string):
         'D': 500,
         'M': 1000
     }
-    di = [r_dictionary[c] for c in roman_string]
+    decs = [r_dictionary[x] for x in roman_string]
     res = 0
-    for key, value in enumerate(di):
-        res += value
-        if key != 0 and di[key - 1] < value:
-            res -= (di[key - 1] + di[key - 1])
+    for i in range(len(decs)):
+        res += decs[i]
+        if decs[i - 1] < decs[i] and i != 0:
+            res -= (decs[i - 1] + decs[i - 1])
     return res
