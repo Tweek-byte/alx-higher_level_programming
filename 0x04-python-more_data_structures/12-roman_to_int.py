@@ -1,19 +1,15 @@
 def roman_to_int(roman_string):
-    if type(roman_string) is not str or roman_string is None:
+    if not isinstance(roman_string, str) or roman_string is None:
         return 0
-    r_dictionary = {
-        'I': 1,
-        'V': 5,
-        'X': 10,
-        'L': 50,
-        'C': 100,
-        'D': 500,
-        'M': 1000
-    }
-    decs = [r_dictionary[x] for x in roman_string]
-    res = 0
-    for i in range(len(decs)):
-        res += decs[i]
-        if decs[i - 1] < decs[i] and i != 0:
-            res -= (decs[i - 1] + decs[i - 1])
-    return res
+
+    r_dic = {"I": 1, "V": 5, "X": 10,
+             "L": 50, "C": 100, "D": 500, "M": 1000}
+
+    result = prev_v = 0
+
+    for char in reversed(roman_string):
+        v = r_dic.get(char, 0)
+        result -= v if v < prev_v else -v
+        prev_v = v
+
+    return result
