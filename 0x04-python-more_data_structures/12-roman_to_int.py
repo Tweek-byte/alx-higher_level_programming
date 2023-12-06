@@ -1,5 +1,5 @@
 def roman_to_int(roman_string):
-    if not isinstance(roman_string, str) or roman_string is None:
+    if type(roman_string) is not str or roman_string is None:
         return 0
     r_dictionary = {
         'I': 1,
