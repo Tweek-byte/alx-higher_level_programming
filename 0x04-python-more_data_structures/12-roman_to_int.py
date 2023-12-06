@@ -2,20 +2,27 @@ def roman_to_int(roman_string):
     if not isinstance(roman_string, str) or roman_string is None:
         return 0
 
-    r_dic = {"I": 1, "V": 5, "X": 10,
-             "L": 50, "C": 100, "D": 500, "M": 1000}
+    roman_values = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
 
-    res = 0
-    prev_v = 0
+    result = 0
+    prev_value = 0
 
     for char in reversed(roman_string):
-        val = r_dic.get(char, 0)
+        value = roman_values[char]
 
-        if val < prev_v:
-            res -= val
+        if value >= prev_value:
+            result += value
         else:
-            res += val
+            result -= value
 
-        prev_v = val
+        prev_value = value
 
-    return res
+    return result
