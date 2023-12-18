@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 def safe_function(fct, *args):
     try:
-        f = fct(*args)
-        return f
-    except Exception:
+        s = fct(*args)
+        return s
+    except Exception as err:
         import sys
-        print("Exception: {}".format(Exception), file=sys.stderr)
+        print("Exception: {}".format(err), file=sys.stderr)
         return None
