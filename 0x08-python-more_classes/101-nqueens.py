@@ -8,17 +8,17 @@ from sys import argv
 
 if __name__ == "__main__":
     chessboard = []
-    
+
     if len(argv) != 2:
         print("Usage: nqueens N")
         exit(1)
-    
+
     if not argv[1].isdigit():
         print("N must be a number")
         exit(1)
-    
+
     board_size = int(argv[1])
-    
+
     if board_size < 4:
         print("N must be at least 4")
         exit(1)
@@ -59,7 +59,6 @@ if __name__ == "__main__":
                 if x == board_size - 1:
                     print(chessboard)
                 else:
-                    solve_nqueens(x + 1)  # Move on to the next x value to continue
+                    solve_nqueens(x + 1)  # Move on to the next x value
 
-    # Start the recursive process at x = 0
     solve_nqueens(0)
