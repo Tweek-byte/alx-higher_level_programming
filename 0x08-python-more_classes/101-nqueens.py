@@ -1,65 +1,62 @@
 #!/usr/bin/python3
 """
-N-Queens backtracking program to print the coordinates of N queens
-on an NxN grid such that they are all in non-attacking positions.
+nqueens backtracking program to print the coordinates of n queens
+on an nxn grid such that they are all in non-attacking positions
 """
+
 
 from sys import argv
 
 if __name__ == "__main__":
-    chessboard = []
-    
+    a = []
     if len(argv) != 2:
         print("Usage: nqueens N")
         exit(1)
-    
-    if not argv[1].isdigit():
+    if argv[1].isdigit() is False:
         print("N must be a number")
         exit(1)
-    
-    board_size = int(argv[1])
-    
-    if board_size < 4:
+    n = int(argv[1])
+    if n < 4:
         print("N must be at least 4")
         exit(1)
 
-    # Initialize the chessboard
-    for i in range(board_size):
-        chessboard.append([i, None])
+    # initialize the answer list
+    for i in range(n):
+        a.append([i, None])
 
-    def queen_already_exists(y):
-        """Check that a queen does not already exist in that y value."""
-        for x in range(board_size):
-            if y == chessboard[x][1]:
+    def already_exists(y):
+        """check that a queen does not already exist in that y value"""
+        for x in range(n):
+            if y == a[x][1]:
                 return True
         return False
 
-    def reject_solution(x, y):
-        """Determines whether or not to reject the solution."""
-        if queen_already_exists(y):
+    def reject(x, y):
+        """determines whether or not to reject the solution"""
+        if (already_exists(y)):
             return False
         i = 0
-        while i < x:
-            if abs(chessboard[i][1] - y) == abs(i - x):
+        while (i < x):
+            if abs(a[i][1] - y) == abs(i - x):
                 return False
             i += 1
         return True
 
-    def clear_chessboard(x):
-        """Clears the chessboard from the point of failure on."""
-        for i in range(x, board_size):
-            chessboard[i][1] = None
+    def clear_a(x):
+        """clears the answers from the point of failure on"""
+        for i in range(x, n):
+            a[i][1] = None
 
-    def solve_nqueens(x):
-        """Recursive backtracking function to find the solution."""
-        for y in range(board_size):
-            clear_chessboard(x)
-            if reject_solution(x, y):
-                chessboard[x][1] = y
-                if x == board_size - 1:
-                    print(chessboard)
+    def nqueens(x):
+        """recursive backtracking function to find the solution"""
+        for y in range(n):
+            clear_a(x)
+            if reject(x, y):
+                a[x][1] = y
+                if (x == n - 1):  # accepts the solution
+                    print(a)
                 else:
-                    solve_nqueens(x + 1)  # Move on to the next x value to continue
+                    nqueens(x + 1)  # moves on to next x value to continue
 
-    # Start the recursive process at x = 0
-    solve_nqueens(0)
+    # start the recursive process at x = 0
+    nqueens(0)
