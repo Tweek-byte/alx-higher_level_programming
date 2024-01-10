@@ -3,40 +3,50 @@
 Reads stdin line by line and computes metrics for web server logs.
 """
 
-import sys
 
-total_size = 0
-status_counts = {"200": 0, "301": 0, "400": 0, "401": 0,
-                "403": 0, "404": 0, "405": 0, "500": 0}
-line_counter = 0
+def print_statistics(total_size, status_codes):
+    """
+    Print file size and status code statistics.
+    """
+    print("File size: {}".format(total_size))
+    for key in sorted(status_codes):
+        print("{}: {}".format(key, status_codes[key]))
 
-try:
-    for line in sys.stdin:
-        tokens = line.split()
-        if len(tokens) >= 2:
-            previous_counter = line_counter
-            if tokens[-2] in status_counts:
-                status_counts[tokens[-2]] += 1
-                line_counter += 1
+
+if __name__ == "__main__":
+    import sys
+
+    total_size = 0
+    status_codes = {}
+    valid_codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
+    line_count = 0
+
+    try:
+        for line in sys.stdin:
+            if line_count == 10:
+                print_statistics(total_size, status_codes)
+                line_count = 1
+            else:
+                line_count += 1
+
+            line = line.split()
+
             try:
-                total_size += int(tokens[-1])
-                if previous_counter == line_counter:
-                    line_counter += 1
-            except FileNotFoundError:
-                if previous_counter == line_counter:
-                    continue
-        if line_counter % 10 == 0:
-            print("Total Size: {:d}".format(total_size))
-            for key, value in sorted(status_counts.items()):
-                if value:
-                    print("{:s}: {:d}".format(key, value))
-    print("Total Size: {:d}".format(total_size))
-    for key, value in sorted(status_counts.items()):
-        if value:
-            print("{:s}: {:d}".format(key, value))
+                total_size += int(line[-1])
+            except (IndexError, ValueError):
+                pass
 
-except KeyboardInterrupt:
-    print("Total Size: {:d}".format(total_size))
-    for key, value in sorted(status_counts.items()):
-        if value:
-            print("{:s}: {:d}".format(key, value))
+            try:
+                if line[-2] in valid_codes:
+                    if status_codes.get(line[-2], -1) == -1:
+                        status_codes[line[-2]] = 1
+                    else:
+                        status_codes[line[-2]] += 1
+            except IndexError:
+                pass
+
+        print_statistics(total_size, status_codes)
+
+    except KeyboardInterrupt:
+        print_statistics(total_size, status_codes)
+        raise
