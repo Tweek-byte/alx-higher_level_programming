@@ -1,7 +1,3 @@
 #!/usr/bin/node
-
-const n = Math.floor(process.argv[2]);
-if (Number.isInteger(n)) {
-  console.log(`My number: ${n}`);
-} else {
-  console.log('Not a number');
+const num = Math.floor(Number(process.argv[2]));
+console.log(isNaN(num) ? 'Not a number' : `My number: ${num}`);
