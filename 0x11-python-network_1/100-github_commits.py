@@ -12,6 +12,7 @@ if __name__ == "__main__":
 
     req = requests.get(address)
     commit = req.json()
+
     try:
         for j in range(10):
             print("{}: {}".format(
