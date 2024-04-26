@@ -6,9 +6,9 @@ def find_peak(list_of_integers):
     if list_of_integers == []:
         return None
 
-    len1 = len(lst_of_integers)
+    len1 = len(list_of_integers)
     n = int(len1 / 2)
-    l = lst_of_integers
+    l = list_of_integers
 
     if 1 - n > 0 and n + 1 >= len1:
         return l[n]
