@@ -1,0 +1,1 @@
+Solutions to SQL introduction task.
