@@ -8,11 +8,11 @@ import urllib.request
 
 
 if __name__ == "__main__":
-    url = sys.argv[1]
+    address = sys.argv[1]
 
-    request = urllib.request.Request(url)
+    req = urllib.request.Request(address)
     try:
-        with urllib.request.urlopen(request) as response:
-            print(response.read().decode("ascii"))
-    except urllib.error.HTTPError as e:
-        print("Error code: {}".format(e.code))
+        with urllib.request.urlopen(req) as res:
+            print(res.read().decode("ascii"))
+    except urllib.error.HTTPError as error:
+        print("Error code: {}".format(error.code))
