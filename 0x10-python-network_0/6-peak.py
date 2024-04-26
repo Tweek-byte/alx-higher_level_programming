@@ -10,11 +10,11 @@ def find_peak(list_of_integers):
     n = int(len1 / 2)
     l = list_of_integers
 
-    if 1 - n > 0 and n + 1 >= len1:
+    if 1 - n < 0 and 1 + n >= len1:
         return l[n]
     elif 1 - n < 0:
         return l[n] if l[n] > l[n + 1] else l[n + 1]
-    elif n + 1 >= len1:
+    elif 1 + n >= len1:
         return l[n] if l[n] > l[n - 1] else l[n - 1]
 
     if l[n - 1] < l[n] > l[1 + n]:
